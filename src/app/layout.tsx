@@ -5,7 +5,7 @@ import './globals.css'
 import { ThemeProvider } from '@/components/theme-provider'
 
 import { cn } from '@/lib/utils'
-import { Navbar } from '@/components/navbar'
+import { Header } from '@/components/header'
 const fontSans = FontSans({
   subsets: ['latin'],
   variable: '--font-sans'
@@ -23,6 +23,9 @@ export default function RootLayout ({
 }>) {
   return (
     <html lang='en' suppressHydrationWarning>
+      <head>
+        <link rel='icon' href='/favicon.svg' sizes='any' />
+      </head>
       <body
         className={cn(
           'w-full bg-background font-sans antialiased mt-4',
@@ -36,7 +39,7 @@ export default function RootLayout ({
           disableTransitionOnChange
         >
           <main className='w-10/12 container mx-auto flex flex-col gap-6 justify-center'>
-            <Navbar />
+            <Header />
             {children}
           </main>
         </ThemeProvider>
