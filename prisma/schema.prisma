@@ -16,7 +16,7 @@ datasource db {
 model Todos {
   id String @id @default(uuid())
   todoText String
-  todoDescription String @default("")
+  todoDescription String?
   isCheck Boolean @default(false)
   createdTodo DateTime @default(now())
 }
