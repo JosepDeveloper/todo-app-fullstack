@@ -37,7 +37,6 @@ export function ListAllTodos ({ allTodos }: PropsComponent) {
                       ? <p className='mt-5'>{todoDescription}</p>
                       : <p className='mt-5 text-white/50'>Sin Descripción</p>
                   }
-                  {/* <p className='mt-5'>{todoDescription || 'Sin Descripción'}</p> */}
                 </CardContent>
 
                 <Separator />
