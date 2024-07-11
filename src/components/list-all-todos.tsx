@@ -13,7 +13,7 @@ function capitalize (text: string) {
 
 export function ListAllTodos ({ allTodos }: PropsComponent) {
   return (
-    <ul className='w-full flex flex-wrap justify-between'>
+    <ul className='w-full flex flex-wrap gap-4 justify-between'>
       {
         allTodos.map((todoEl) => {
           const { id, todoText, todoDescription, createdTodo } = todoEl
@@ -32,7 +32,12 @@ export function ListAllTodos ({ allTodos }: PropsComponent) {
                 <Separator />
 
                 <CardContent className='h-[184px]'>
-                  <p className='mt-5'>{todoDescription || 'Sin Descripción'}</p>
+                  {
+                    todoDescription
+                      ? <p className='mt-5'>{todoDescription}</p>
+                      : <p className='mt-5 text-white/50'>Sin Descripción</p>
+                  }
+                  {/* <p className='mt-5'>{todoDescription || 'Sin Descripción'}</p> */}
                 </CardContent>
 
                 <Separator />
