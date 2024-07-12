@@ -2,13 +2,11 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { todosArray } from '@/app/types/todo.types'
 import { Separator } from '@/components/ui/separator'
 import { Button } from './ui/button'
+import { capitalize } from '@/lib/capitalize'
+import { DeleteTodo } from './delete-todo'
 
 interface PropsComponent {
   allTodos: todosArray
-}
-
-function capitalize (text: string) {
-  return text.charAt(0).toUpperCase() + text.slice(1)
 }
 
 export function ListAllTodos ({ allTodos }: PropsComponent) {
@@ -43,7 +41,7 @@ export function ListAllTodos ({ allTodos }: PropsComponent) {
 
                 <CardFooter className='h-[100px] flex gap-5 justify-end items-center'>
                   <Button variant='outline'>Editar</Button>
-                  <Button variant='destructive'>Eliminar</Button>
+                  <DeleteTodo id={id} />
                 </CardFooter>
               </Card>
             </li>
