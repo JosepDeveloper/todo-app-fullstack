@@ -41,6 +41,7 @@ export default function RootLayout ({
           <main className='w-10/12 container mx-auto flex flex-col gap-6 justify-center'>
             <Header />
             {children}
+
           </main>
         </ThemeProvider>
       </body>
