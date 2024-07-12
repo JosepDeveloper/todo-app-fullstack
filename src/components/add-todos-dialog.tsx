@@ -54,7 +54,7 @@ export function AddTodosDialog () {
               <Label htmlFor='description' className='text-right'>
                 Descripción
               </Label>
-              <Textarea name='todoDescription' className={`${styles.form} w-[277px]`} id='description' placeholder='Type your message here.' />
+              <Textarea name='todoDescription' className={`${styles.form} w-[277px]`} id='description' placeholder='Escribe tu descripcion aqui.' />
             </div>
           </div>
           <DialogFooter>
