@@ -37,3 +37,6 @@ next-env.d.ts
 
 # Enviroment Variables
 .env
+
+# Prisma
+migrations
