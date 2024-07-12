@@ -1,39 +1,41 @@
+'use client'
+import { onSubmit } from '@/actions/add-todo'
 import styles from './header.module.css'
 import { Button } from './ui/button'
-import { Dialog, DialogClose, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from './ui/dialog'
+import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from './ui/dialog'
 import { Input } from './ui/input'
 import { Label } from './ui/label'
 import { Textarea } from './ui/textarea'
-import prisma from '@/lib/prisma/db'
-import { revalidatePath } from 'next/cache'
+import { useState } from 'react'
+import { toast } from 'sonner'
+import { Toaster } from '@/components/ui/sonner'
 
 export function AddTodosDialog () {
-  const onSubmit = async (fromData: FormData) => {
-    'use server'
-
-    const todoText = String(fromData.get('textTodo'))
-    const todoDescription = String(fromData.get('todoDescription'))
-
-    if (!todoText) throw new Error('Not are recieve todoText variable')
-
-    const body = {
-      todoText,
-      todoDescription
-    }
-
-    await prisma.todos.create({
-      data: body
-    })
-    revalidatePath('/')
-  }
+  const [isOpenDialog, setOpenDialog] = useState(false)
 
   return (
-    <Dialog>
+    <Dialog open={isOpenDialog} onOpenChange={setOpenDialog}>
       <DialogTrigger asChild>
         <Button variant='secondary'>Agregar Todo</Button>
       </DialogTrigger>
       <DialogContent className='sm:max-w-[425px]'>
-        <form action={onSubmit}>
+        <form action={
+          async (formData) => {
+            const todoText = String(formData.get('textTodo'))
+
+            if (!todoText) {
+              toast.error('Usuario en blanco', {
+                description: 'El campo nombre del Usuario esta vacio',
+                duration: 2000
+              })
+              return
+            }
+
+            onSubmit(formData)
+            setOpenDialog(false)
+          }
+        }
+        >
           <DialogHeader>
             <DialogTitle>Agregar Todo</DialogTitle>
           </DialogHeader>
@@ -47,7 +49,6 @@ export function AddTodosDialog () {
                 name='textTodo'
                 placeholder='Limpiar la casa, programar ...'
                 className='col-span-3'
-                required
               />
             </div>
             <div className='grid grid-cols-4 items-center gap-4'>
@@ -58,12 +59,11 @@ export function AddTodosDialog () {
             </div>
           </div>
           <DialogFooter>
-            <DialogClose asChild>
-              <Button type='submit'>Agregar Todo</Button>
-            </DialogClose>
+            <Button type='submit'>Agregar Todo</Button>
           </DialogFooter>
         </form>
       </DialogContent>
+      <Toaster position='top-center' richColors />
     </Dialog>
   )
 }
