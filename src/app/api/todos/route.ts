@@ -43,3 +43,37 @@ export async function POST (request: Request) {
     }
   )
 }
+
+interface bodyRequestDelete {
+  id: string
+}
+
+export async function DELETE (request: Request) {
+  let body: bodyRequestDelete
+
+  try {
+    body = await request.json()
+  } catch {
+    return NextResponse.json({ message: 'Not are recieve a body' }, { status: 404 })
+  }
+
+  if (!body.id) {
+    return NextResponse.json(
+      { message: 'Not are recieve id in body' },
+      { status: 404 }
+    )
+  }
+
+  const response = await prisma.todos.delete({
+    where: {
+      id: body.id
+    }
+  })
+
+  return NextResponse.json(
+    {
+      message: 'Todo delete correctly',
+      data: response
+    }
+  )
+}
